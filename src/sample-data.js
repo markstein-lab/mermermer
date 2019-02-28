@@ -46,8 +46,8 @@
 // }
 
 export const sampleData = {
-  "query": "", // TODO
-  "resultIndex": 0, // TODO
+  "query": "ABCB7",
+  "resultIndex": 0,
   "sequences": [
     {
       "sequenceName": "3L",
