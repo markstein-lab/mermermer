@@ -1,5 +1,5 @@
-import d3 from 'd3';
-import sampleData from './sample-data.js';
+const d3 = require('d3');
+const sampleData = require('./sample-data.js').sampleData;
 
 function component() {
   let element = document.createElement('div');
