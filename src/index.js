@@ -1,17 +1,15 @@
 const d3 = require('d3');
 const sampleData = require('./sample-data.js').sampleData;
 
-function component() {
-  let element = document.createElement('div');
-  element.innerHTML = "Hello, Webpack!";
-  return element;
-}
+// Set the page header.
+d3.select("body")
+  .append("h1")
+  .text(`Results for "${sampleData.query}"`);
 
-document.body.appendChild(component());
-
-// d3.select("body")
-//   .append("svg")
-//   .append("circle")
-//   .attr("cx", 60)
-//   .attr("cy", 60)
-//   .attr("r", 6);
+// Initialize an individual SVG element for each individual sequence in the
+// "Results" object.
+d3.select("body")
+  .selectAll("svg")
+  .data(sampleData.sequences)
+  .enter()
+  .append("svg");
