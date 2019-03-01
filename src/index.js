@@ -141,14 +141,46 @@ d3.selection.prototype.segment = function(x, y, w, h, fill) {
 }
 
 // Set the page header.
-d3.select("body")
-  .append("h1")
+d3.select('body')
+  .append('h1')
   .text(`Results for "${sampleData.query}"`);
 
-// Initialize an individual SVG element for each individual sequence in the
+// Initialize an individual `svg` element for each individual sequence in the
 // "Results" object.
-d3.select("body")
-  .selectAll("svg")
+d3.select('body')
+  .selectAll('.sequence-frame')
   .data(sampleData.sequences)
   .enter()
-  .append("svg");
+  .sequenceFrame()
+  .each(function(d, i) {
+    let genes = d.genes;
+    let transcripts = d.genes.flatMap((gene) => { return gene.transcripts; });
+
+    let svg = d3.select(this);
+    let geneWidth = svg.attr('geneWidth');
+    let geneHeight = svg.attr('geneHeight');
+    let transcriptsStartOffset = geneHeight * genes.length;
+
+    // <temporary>
+    let startBp = genes[0].start;
+    let endBp = genes[0].end;
+    let scale = d3.scaleLinear([startBp, endBp], [25, geneWidth - 25]);
+
+    genes.forEach((gene, i) => {
+      let yOffset = i * geneHeight;
+      svg.featureTitle(yOffset, `Gene ${i + 1}: "${gene.geneName}"`);
+      svg.paddedLine(0, yOffset + 60, geneWidth, 5, 'gray');
+      svg.segment(scale(gene.start), yOffset + 60, scale(gene.end) - scale(gene.start), 5, 'red');
+    });
+
+    transcripts.forEach((transcript, i) => {
+      let yOffset = i * geneHeight + transcriptsStartOffset;
+      svg.featureTitle(yOffset, `Transcript ${i + 1}: "${transcript.transcriptName}"`);
+      svg.paddedLine(0, yOffset + 60, geneWidth, 5, 'gray');
+
+      transcript.exons.forEach((exon) => {
+        svg.segment(scale(exon.start), yOffset + 60, scale(exon.end) - scale(exon.start), 5, 'blue');
+      });
+    });
+    // </temporary>
+  });
