@@ -29,15 +29,19 @@ const sampleData = require('./sample-data.js').sampleData;
  */
 d3.selection.prototype.sequenceFrame = function(geneWidth = 800, geneHeight = 200) {
   let geneCount = this.data()
-      .map((seq) => { return seq.genes.length; })
+      .map((seq) => {
+        let genes = seq.genes;
+        let transcripts = genes.flatMap((gene) => { return gene.transcripts; });
+        return genes.length + transcripts.length;
+      })
       .reduce((acc, cur) => { return acc + cur });
 
-  return this.append("svg")
-    .attr("class", "sequence-frame")
-    .attr("viewBox", `0 0 ${geneWidth} ${geneHeight * geneCount}`)
-    .attr("xmlns", "http://www.w3.org/2000/svg")
-    .attr("geneWidth", geneWidth)
-    .attr("geneHeight", geneHeight);
+  return this.append('svg')
+    .attr('class', 'sequence-frame')
+    .attr('viewBox', `0 0 ${geneWidth} ${geneHeight * geneCount}`)
+    .attr('xmlns', 'http://www.w3.org/2000/svg')
+    .attr('geneWidth', geneWidth)
+    .attr('geneHeight', geneHeight);
 }
 
 /**
