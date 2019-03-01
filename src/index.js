@@ -19,7 +19,9 @@ d3.selection.prototype.sequenceFrame = function(geneWidth = 800, geneHeight = 20
   return this.append("svg")
     .attr("class", "sequence-frame")
     .attr("viewBox", `0 0 ${geneWidth} ${geneHeight * geneCount}`)
-    .attr("xmlns", "http://www.w3.org/2000/svg");
+    .attr("xmlns", "http://www.w3.org/2000/svg")
+    .attr("geneWidth", geneWidth)
+    .attr("geneHeight", geneHeight);
 }
 
 /**
@@ -33,9 +35,6 @@ d3.selection.prototype.sequenceFrame = function(geneWidth = 800, geneHeight = 20
  */
 d3.selection.prototype.featureTitle = function(y, title) {
   let text = this
-      .selectAll(".feature-title")
-      .data((d, i) => { return d.genes; })
-      .enter()
       .append("g")
       .attr("class", "feature-title")
       .append("text")
@@ -69,9 +68,6 @@ d3.selection.prototype.featureTitle = function(y, title) {
 d3.selection.prototype.paddedLine = function(x, y, w, h, fill) {
   let r = h / 2;
   let g = this
-      .selectAll(".padded-line")
-      .data((d, i) => { return d.genes; })
-      .enter()
       .append("g")
       .attr("class", "padded-line")
       .attr("fill", fill);
@@ -102,9 +98,6 @@ d3.selection.prototype.segment = function(x, y, w, h, fill) {
   let r = h / 2;
   let g = this
       .selectAll(".segment")
-      .data((d, i) => { return d.genes; })
-      .enter()
-      .append("g")
       .attr("class", "segment")
       .attr("fill", fill);
 
