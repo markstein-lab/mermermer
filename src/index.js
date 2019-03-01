@@ -55,9 +55,9 @@ d3.selection.prototype.sequenceFrame = function(geneWidth = 800, geneHeight = 20
  */
 d3.selection.prototype.featureTitle = function(y, title) {
   let text = this
-      .append("g")
-      .attr("class", "feature-title")
-      .append("text")
+      .append('g')
+      .attr('class', 'feature-title')
+      .append('text')
       .text(title);
 
   let textWidth = text.node().getBBox().width;
@@ -66,8 +66,8 @@ d3.selection.prototype.featureTitle = function(y, title) {
   let viewWidth = this.node().viewBox.baseVal.width;
   let viewHeight = this.node().viewBox.baseVal.height;
 
-  text.attr("x", (viewWidth - textWidth) / 2);
-  text.attr("y", textHeight);
+  text.attr('x', (viewWidth - textWidth) / 2);
+  text.attr('y', y + textHeight);
 
   return this;
 }
@@ -88,15 +88,15 @@ d3.selection.prototype.featureTitle = function(y, title) {
 d3.selection.prototype.paddedLine = function(x, y, w, h, fill) {
   let r = h / 2;
   let g = this
-      .append("g")
-      .attr("class", "padded-line")
-      .attr("fill", fill);
+      .append('g')
+      .attr('class', 'padded-line')
+      .attr('fill', fill);
 
-  g.append("rect")
-    .attr("x", x)
-    .attr("y", y + r - 1)
-    .attr("width", w)
-    .attr("height", 1);
+  g.append('rect')
+    .attr('x', x)
+    .attr('y', y + r - 1)
+    .attr('width', w)
+    .attr('height', 1);
 
   return this;
 }
@@ -117,25 +117,25 @@ d3.selection.prototype.paddedLine = function(x, y, w, h, fill) {
 d3.selection.prototype.segment = function(x, y, w, h, fill) {
   let r = h / 2;
   let g = this
-      .selectAll(".segment")
-      .attr("class", "segment")
-      .attr("fill", fill);
+      .append('g')
+      .attr('class', 'segment')
+      .attr('fill', fill);
 
-  g.append("circle")
-    .attr("cx", x + r)
-    .attr("cy", y + r)
-    .attr("r", r);
+  g.append('circle')
+    .attr('cx', x + r)
+    .attr('cy', y + r)
+    .attr('r', r);
 
-  g.append("circle")
-    .attr("cx", x + w)
-    .attr("cy", y + r)
-    .attr("r", r);
+  g.append('circle')
+    .attr('cx', x + w)
+    .attr('cy', y + r)
+    .attr('r', r);
 
-  g.append("rect")
-    .attr("x", x + r)
-    .attr("y", y)
-    .attr("width", w - r)
-    .attr("height", h);
+  g.append('rect')
+    .attr('x', x + r)
+    .attr('y', y)
+    .attr('width', w - r)
+    .attr('height', h);
 
   return this;
 }
