@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "start": "webpack-dev-server --open",
     "build": "webpack"
   },
   "keywords": [],
@@ -12,7 +13,8 @@
   "devDependencies": {
     "mocha": "^6.0.2",
     "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
     "d3": "^5.9.1"
